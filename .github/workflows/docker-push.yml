@@ -7,6 +7,7 @@ on:
 
 env:
     NAME: my-fastapi-app
+    NAMESPACE: xxblackmasterxx
     ORG: ghcr.io
     TAG: latest
 
@@ -22,7 +23,7 @@ jobs:
               run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
             - name: Contruir imagen de Docker
-              run: docker build -t $ORG/$NAME:$TAG .
+              run: docker build -t $ORG/$NAMESPACE/$NAME:$TAG .
 
             - name: Subir imagen de Docker
-              run: docker push $ORG/$NAME:$TAG
+              run: docker push $ORG/$NAMESPACE/$NAME:$TAG
