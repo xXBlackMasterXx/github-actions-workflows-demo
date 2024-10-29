@@ -1,0 +1,29 @@
+name: CI - Azure CR Build & Push
+
+on:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
+
+env:
+    NAME: my-fastapi-app
+    ORG: {{ secrets.azurecr_uri }}
+    TAG: latest
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout del repositorio
+              uses: actions/checkout@v4
+
+            - name: Iniciar sesión en el registro de contenedores de GitHub
+              run: echo ${{ secrets.azurecr_password }} | docker login $ORG -u ${{ secrets.azurecr_username }} --password-stdin
+
+            - name: Contruir imagen de Docker
+              run: docker build -t $ORG/$NAME:$TAG .
+
+            - name: Subir imagen de Docker
+              run: docker push $ORG/$NAME:$TAG
