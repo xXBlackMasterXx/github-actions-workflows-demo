@@ -1,4 +1,4 @@
-[![CI - Docker Build & Push](https://github.com/xXBlackMasterXx/github-actions-workflows-demo/actions/workflows/docker-push.yml/badge.svg)](https://github.com/xXBlackMasterXx/github-actions-workflows-demo/actions/workflows/docker-push.yml)
+[![CI - Docker Build & Push](https://github.com/xXBlackMasterXx/github-actions-workflows-demo/actions/workflows/docker-push.yml/badge.svg?branch=main)](https://github.com/xXBlackMasterXx/github-actions-workflows-demo/actions/workflows/docker-push.yml)
 
 # GitHub Actions Worflows Demo
 
