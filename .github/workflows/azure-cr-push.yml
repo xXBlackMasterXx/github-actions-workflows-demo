@@ -19,7 +19,7 @@ jobs:
             - name: Checkout del repositorio
               uses: actions/checkout@v4
 
-            - name: Iniciar sesión en el registro de contenedores de GitHub
+            - name: Iniciar sesión en el registro de contenedores de Azure
               run: echo ${{ secrets.azurecr_password }} | docker login $ORG -u ${{ secrets.azurecr_username }} --password-stdin
 
             - name: Contruir imagen de Docker
