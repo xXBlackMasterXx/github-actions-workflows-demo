@@ -24,7 +24,7 @@ jobs:
               run: echo ${{ secrets.azurecr_password }} | docker login ${{ secrets.azurecr_uri }} -u ${{ secrets.azurecr_username }} --password-stdin
             
             - name: Contruir imagen de Docker
-              run: docker build -f Dockerfile.dev -t ${{ secrets.azurecr_uri }}/$NAME:$TAG .
+              run: docker build -f Dockerfile.dev -t ${{ secrets.azurecr_uri }}/$IMAGE_NAME:$TAG .
 
             - name: Añadir etiquetas a la imagen de Docker
               run: |
