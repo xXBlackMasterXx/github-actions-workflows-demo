@@ -1,0 +1,63 @@
+name: CD - Cotizador Frontend Dev to Azure Container Registry
+
+on:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
+
+env:
+    IMAGE_NAME: my-fastapi-app
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout del repositorio
+              uses: actions/checkout@v4
+
+            - name: Obtener el hash del último commit
+              run: TAG=$(git rev-parse --short HEAD)
+
+            - name: Iniciar sesión en el registro de contenedores de Azure
+              run: echo ${{ secrets.azurecr_password }} | docker login ${{ secrets.azurecr_uri }} -u ${{ secrets.azurecr_username }} --password-stdin
+            
+            - name: Contruir imagen de Docker
+              run: docker build -f Dockerfile.dev -t ${{ secrets.azurecr_uri }}/$NAME:$TAG .
+
+            - name: Añadir etiquetas a la imagen de Docker
+              run: |
+                # Crear una imagen con el tag del último commit `$TAG`
+                echo "🔗 Creando un enlace simbólico a $IMAGE_NAME:$TAG"
+                docker tag $IMAGE_NAME:$TAG ${{ secrets.azurecr_uri }}/$IMAGE_NAME:$TAG
+                # Confirmar que la imagen se ha creado
+                echo "✅ La imagen $IMAGE_NAME:$TAG se ha creado correctamente\n"
+
+                # Crear una imagen con el tag `latest`
+                echo "🔗 Creando un enlace simbólico a $IMAGE_NAME:latest"
+                docker tag $IMAGE_NAME:$TAG $IMAGE_NAME:latest
+                # Confirmar que la imagen se ha creado
+                echo "✅ La imagen $IMAGE_NAME:latest se ha creado correctamente\n"
+
+                # Crear una imagen con el tag remoto para el último commit `$TAG`
+                echo "🔗 Creando un enlace simbólico a ${{ secrets.azurecr_uri }}/$IMAGE_NAME:$TAG"
+                docker tag $IMAGE_NAME:$TAG ${{ secrets.azurecr_uri }}/$IMAGE_NAME:$TAG
+                # Confirmar que la imagen se ha creado
+                echo "✅ La imagen ${{ secrets.azurecr_uri }}/$IMAGE_NAME:$TAG se ha creado correctamente\n"
+
+                # Crear una imagen con el tag remoto para el tag `latest`
+                echo "🔗 Creando un enlace simbólico a ${{ secrets.azurecr_uri }}/$IMAGE_NAME:latest"
+                docker tag $IMAGE_NAME:$TAG ${{ secrets.azurecr_uri }}/$IMAGE_NAME:latest
+                # Confirmar que la imagen se ha creado
+                echo "✅ La imagen ${{ secrets.azurecr_uri }}/$IMAGE_NAME:latest se ha creado correctamente\n"
+
+            - name: Subir imagen de Docker
+              run: |
+                # Enviar la imagen al registro de contenedores de Azure Container Registry
+                echo "📤 Enviando la imagen ${{ secrets.azurecr_uri }}/$IMAGE_NAME:$TAG al registro de contenedores de Azure Container Registry"
+                docker push ${{ secrets.azurecr_uri }}/$IMAGE_NAME:$TAG
+
+                # Enviando la imagen con el tag latest
+                echo "\n📤 Enviando la imagen ${{ secrets.azurecr_uri }}/$IMAGE_NAME:latest al registro de contenedores de Azure Container Registry"
+                docker push ${{ secrets.azurecr_uri }}/$IMAGE_NAME:latest
