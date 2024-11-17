@@ -1,4 +1,7 @@
-[![CI - Docker Build & Push](https://github.com/xXBlackMasterXx/github-actions-workflows-demo/actions/workflows/docker-push.yml/badge.svg?branch=main)](https://github.com/xXBlackMasterXx/github-actions-workflows-demo/actions/workflows/docker-push.yml)
+[![CD - My FastAPI App Dev to Azure Container Registry](https://github.com/xXBlackMasterXx/github-actions-workflows-demo/actions/workflows/cotizador-cd-dev.yml/badge.svg?branch=main)](https://github.com/xXBlackMasterXx/github-actions-workflows-demo/actions/workflows/cotizador-cd-dev.yml)
+[![CD - My FastAPI App Prod to Azure Container Registry](https://github.com/xXBlackMasterXx/github-actions-workflows-demo/actions/workflows/cotizador-cd-prod.yml/badge.svg?branch=main)](https://github.com/xXBlackMasterXx/github-actions-workflows-demo/actions/workflows/cotizador-cd-prod.yml)
+[![CI - Azure CR Build & Push](https://github.com/xXBlackMasterXx/github-actions-workflows-demo/actions/workflows/azure-cr-push.yml/badge.svg?branch=main)](https://github.com/xXBlackMasterXx/github-actions-workflows-demo/actions/workflows/azure-cr-push.yml)
+[![CI - GitHub CR Build & Push](https://github.com/xXBlackMasterXx/github-actions-workflows-demo/actions/workflows/github-cr-push.yml/badge.svg?branch=main)](https://github.com/xXBlackMasterXx/github-actions-workflows-demo/actions/workflows/github-cr-push.yml)
 
 # GitHub Actions Workflows Demo 🚀
 
